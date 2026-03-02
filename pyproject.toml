@@ -27,11 +27,13 @@ dev = [
 	"mypy==1.11",
 ]
 
-[tool.uv.sources]
-torch = { index = "pytorch-cu126" }
-torchvision = { index = "pytorch-cu126"}
+# CUDA PyTorch configuration (for Linux/Windows with CUDA)
+# Commented out for macOS compatibility - uncomment if using CUDA-enabled system
+# [tool.uv.sources]
+# torch = { index = "pytorch-cu126" }
+# torchvision = { index = "pytorch-cu126"}
 
-[[tool.uv.index]]
-name = "pytorch-cu126"
-url = "https://download.pytorch.org/whl/cu126"
-explicit = true
+# [[tool.uv.index]]
+# name = "pytorch-cu126"
+# url = "https://download.pytorch.org/whl/cu126"
+# explicit = true
