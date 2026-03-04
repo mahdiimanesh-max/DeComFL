@@ -17,6 +17,9 @@ from cezo_fl.gradient_estimators.adam_forward import (
     AdamForwardGradientEstimatorBatch,
     AdamForwardGradientEstimatorParamwise,
 )
+from cezo_fl.gradient_estimators.evolution_strategies_estimator import (
+    EvolutionStrategiesEstimator,
+)
 from cezo_fl.typing import CriterionType
 from cezo_fl.util.metrics import Metric
 
@@ -152,6 +155,15 @@ class ResetClient(AbstractClient):
                     batch_inputs, labels, self._loss_fn, seed
                 )
                 self.optimizer.step()
+            elif isinstance(self.grad_estimator, EvolutionStrategiesEstimator):
+                # ES: compute rewards (negative loss) and update model directly
+                grad_scalars = self.grad_estimator.compute_grad(
+                    batch_inputs, labels, self._loss_fn, seed
+                )
+                # ES update uses update_model_given_seed_and_grad with rewards
+                self.grad_estimator.update_model_given_seed_and_grad(
+                    self.optimizer, [seed], [grad_scalars]
+                )
             else:
                 raise ValueError(f"Unsupported gradient estimator: {self.grad_estimator}")
 
