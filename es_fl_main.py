@@ -30,19 +30,14 @@ from experiment_helper.data import get_dataloaders
 
 class ESSetting(FrozenSetting):
     """ES-specific hyperparameters"""
-    sigma: float = Field(
-        default=0.01,
-        description="Perturbation scale (sigma) for ES"
-    )
+
+    sigma: float = Field(default=0.01, description="Perturbation scale (sigma) for ES")
     num_pert: int = Field(
         default=100,
         validation_alias=AliasChoices("num-pert"),
-        description="Population size (number of perturbations) for ES"
+        description="Population size (number of perturbations) for ES",
     )
-    alpha: float = Field(
-        default=0.02,
-        description="Learning rate (alpha) for ES update rule"
-    )
+    alpha: float = Field(default=0.02, description="Learning rate (alpha) for ES update rule")
 
 
 class CliSetting(
@@ -208,9 +203,11 @@ if __name__ == "__main__":
             )
         )
 
-    print(f"🔹 Evolution Strategies Federated Learning")
+    print("🔹 Evolution Strategies Federated Learning")
     print(f"Population Size: {args.num_pert}, Sigma: {args.sigma}, Alpha: {args.alpha}")
-    print(f"Dataset: {args.dataset.value}, Iterations: {args.iterations}, Clients: {args.num_clients}")
+    print(
+        f"Dataset: {args.dataset.value}, Iterations: {args.iterations}, Clients: {args.num_clients}"
+    )
     print("")
 
     with tqdm(total=args.iterations, desc="Training:") as t, torch.no_grad():
