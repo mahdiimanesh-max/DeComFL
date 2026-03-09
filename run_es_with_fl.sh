@@ -5,8 +5,8 @@
 echo "🔹 Running Evolution Strategies (ES) WITH FL (Federated Learning)"
 echo "Dataset: MNIST, Iterations: 100, Clients: 3"
 echo "FIXED: Update scaling bug (now divides by num_pert, not total_perturbations)"
-echo "Population Size: 100, Sigma: 0.01, Alpha: 0.02 (reduced after bug fix)"
-echo "More iterations, perturbations, local steps"
+echo "Population Size: 50, Local Steps: 40, Sigma: 0.03, Alpha: 0.02"
+echo "Increased perturbations and local steps for better estimates and optimization"
 echo ""
 
 uv run python es_fl_main.py \
@@ -14,9 +14,9 @@ uv run python es_fl_main.py \
     --iterations=100 \
     --num-clients=3 \
     --num-sample-clients=3 \
-    --local-update-steps=30 \
-    --num-pert=100 \
-    --sigma=0.01 \
+    --local-update-steps=40 \
+    --num-pert=50 \
+    --sigma=0.03 \
     --alpha=0.02 \
     --lr=0.02 \
     --eval-iterations=5 \
